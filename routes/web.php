@@ -20,9 +20,13 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, "index"])->name('dashboard');
 
-Route::prefix('/student')->group(function (){
+Route::prefix('/student')->group(function () {
     Route::get('/', [StudentController::class, "index"])->name('student');
-    Route::get('/all', [StudentController::class, "all"])->name('all.student');
+    Route::get('/show', [StudentController::class, "show"])->name('student.show');
+    Route::get('/list', [StudentController::class, 'list'])->name('student.list');
+    Route::post('/store', [StudentController::class, "store"])->name('student.store');
+    Route::get('/{student_id}/status', [StudentController::class, "status"])->name('student.status');
+    Route::delete('/{student_id}/delete', [StudentController::class, "delete"])->name('student.delete');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

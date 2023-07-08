@@ -3,45 +3,50 @@
 namespace domain\Services;
 
 use App\Models\Student;
+use domain\Facades\ImagesFacade;
 
 class StudentService
 {
-    // protected $student;
+    protected $student;
 
-    // public function __construct()
-    // {
-    //     $this->student = new Student();
-    // }
+    public function __construct()
+    {
+        $this->student = new Student();
+    }
 
-    // public function all()
-    // {
-    //     return $this->student->all();
-    // }
+    public function all()
+    {
+        return $this->student->all();
+    }
 
-    // public function store($data)
-    // {
-    //     $this->student->create($data);
-    // }
+    public function store($data)
+    {
+        if (isset($data['images'])) {
+            $image = ImagesFacade::storeToPublic($data['images']);
+            $data['image_id'] = $image->id;
+        }
 
-    // public function delete($student_id)
-    // {
-    //     $student = $this->student->find($student_id);
-    //     $student->delete();
-    // }
+        $this->student->create($data);
+    }
 
-    // public function status($student_id)
-    // {
-    //     $student = $this->student->find($student_id);
+    public function delete($student_id)
+    {
+        $student = $this->student->find($student_id);
+        $student->delete();
+    }
 
-    //     if($student->status == 1) {
-    //         $student->status = 0;
-    //     }else{
-    //         $student->status = 1;
-    //     }
+    public function status($student_id)
+    {
+        $student = $this->student->find($student_id);
 
-    //     $student->update();
+        if ($student->status == 1) {
+            $student->status = 0;
+        } else {
+            $student->status = 1;
+        }
 
-    // }
+        $student->update();
+    }
 
     // public function update(array $data, $student_id)
     // {

@@ -9,7 +9,7 @@
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0"
                 href=" https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html " target="_blank">
-                <img :src="imageSrcLogo" class="navbar-brand-img h-100" :alt="imageAltLogo">
+                <!-- <img :src="imageSrcLogo" class="navbar-brand-img h-100" :alt="imageAltLogo"> -->
                 <span class="ms-1 font-weight-bold">Dashboard</span>
             </a>
         </div>
@@ -45,22 +45,22 @@
                     <div class="collapse  show " id="dashboardsExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link " :href="route('dashboard')">
-                                    <span class="sidenav-mini-icon"> D </span>
-                                    <span class="sidenav-normal"> Home </span>
-                                </a>
+                                <Link class="nav-link" :href="route('dashboard')">
+                                <span class="sidenav-mini-icon"> D </span>
+                                <span class="sidenav-normal"> Home </span>
+                                </Link>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " :href="route('student')">
-                                    <span class="sidenav-mini-icon"> D </span>
-                                    <span class="sidenav-normal"> Student Register </span>
-                                </a>
+                                <Link class="nav-link" :href="route('student')">
+                                <span class="sidenav-mini-icon"> D </span>
+                                <span class="sidenav-normal"> Student Register </span>
+                                </Link>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " :href="route('all.student')">
-                                    <span class="sidenav-mini-icon"> A </span>
-                                    <span class="sidenav-normal"> All Students </span>
-                                </a>
+                                <Link class="nav-link" :href="route('student.show')">
+                                <span class="sidenav-mini-icon"> A </span>
+                                <span class="sidenav-normal"> All Students </span>
+                                </Link>
                             </li>
 
                         </ul>
@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-// import route from 'vendor/tightenco/ziggy/src/js';
+import { Link } from '@inertiajs/vue3';
 
 
 </script>

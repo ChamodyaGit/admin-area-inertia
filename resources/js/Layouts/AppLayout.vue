@@ -44,9 +44,6 @@ export default {
     },
 }
 
-// template js
-
-
 </script>
 
 <style lang="css" scoped></style>

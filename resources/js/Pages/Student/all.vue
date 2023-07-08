@@ -1,6 +1,6 @@
 <template>
     <AppLayout title="All Students">
-        <template #content>
+        <template #content @load.prevent="getStudents()">
             <div class="row">
                 <div class="col-lg-12 position-relative z-index-2">
                     <div class="card card-plain mb-4">
@@ -44,40 +44,10 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
+
+                                                            <tr v-for="(student, key) in student_list" :key="key">
                                                                 <td>
-                                                                    1
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex px-2 py-1">
-                                                                        <div>
-                                                                            <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/team-2.jpg"
-                                                                                class="avatar avatar-sm me-3">
-                                                                        </div>
-                                                                        <div
-                                                                            class="d-flex flex-column justify-content-center">
-                                                                            <h6 class="mb-0 text-xs">John Michael</h6>
-                                                                            <p class="text-xs text-secondary mb-0">
-                                                                                john@creative-tim.com</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="align-middle text-center text-sm">
-                                                                    <span class="badge badge-sm badge-success">Active</span>
-                                                                </td>
-                                                                <td class="align-middle text-center">
-                                                                    <span
-                                                                        class="text-secondary text-xs font-weight-bold">2000/08/17</span>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                    <button type="button" class="btn bg-gradient-warning ms-1"><i class="bi bi-slash-circle"></i></button>
-                                                                    <button type="button" class="btn bg-gradient-info ms-1"><i class="bi bi-pencil-fill"></i></button>
-                                                                    <button type="button" class="btn bg-gradient-danger ms-1"><i class="bi bi-trash"></i></button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    2
+                                                                    {{ key + 1 }}
                                                                 </td>
                                                                 <td>
                                                                     <div class="d-flex px-2 py-1">
@@ -87,26 +57,41 @@
                                                                         </div>
                                                                         <div
                                                                             class="d-flex flex-column justify-content-center">
-                                                                            <h6 class="mb-0 text-xs">John Michael</h6>
+                                                                            <h6 class="mb-0 text-xs">{{ student.name }}</h6>
                                                                             <p class="text-xs text-secondary mb-0">
-                                                                                john@creative-tim.com</p>
+                                                                                {{ student.email }}</p>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                                 <td class="align-middle text-center text-sm">
-                                                                    <span
+                                                                    <span v-if="student.status == 1"
+                                                                        class="badge badge-sm badge-success">Active</span>
+                                                                    <span v-else
                                                                         class="badge badge-sm badge-secondary">Inactive</span>
                                                                 </td>
                                                                 <td class="align-middle text-center">
-                                                                    <span
-                                                                        class="text-secondary text-xs font-weight-bold">2000/08/17</span>
+                                                                    <span class="text-secondary text-xs font-weight-bold">{{
+                                                                        student.date }}</span>
                                                                 </td>
                                                                 <td class="align-middle">
-                                                                    <button type="button" class="btn bg-gradient-success ms-1"><i class="bi bi-check2"></i></button>
-                                                                    <button type="button" class="btn bg-gradient-info ms-1"><i class="bi bi-pencil-fill"></i></button>
-                                                                    <button type="button" class="btn bg-gradient-danger ms-1"><i class="bi bi-trash"></i></button>
+                                                                    <button type="button" v-if="student.status == 0"
+                                                                        @click="changeStatus(student.id)"
+                                                                        class="btn bg-gradient-success ms-1"><i
+                                                                            class="bi bi-check2"></i></button>
+                                                                    <button type="button" v-else
+                                                                        @click="changeStatus(student.id)"
+                                                                        class="btn bg-gradient-warning ms-1"><i
+                                                                            class="bi bi-slash-circle"></i></button>
+                                                                    <button type="button"
+                                                                        class="btn bg-gradient-info ms-1"><i
+                                                                            class="bi bi-pencil-fill"></i></button>
+                                                                    <button type="button"
+                                                                        @click.prevent="deleteStudent(student.id)"
+                                                                        class="btn bg-gradient-danger ms-1"><i
+                                                                            class="bi bi-trash"></i></button>
                                                                 </td>
                                                             </tr>
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -126,6 +111,7 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue'
+import axios from 'axios';
 
 export default {
     components: {
@@ -133,12 +119,25 @@ export default {
     },
     data() {
         return {
-            imageSrc1: "../../public/assets/img/icons/flags/US.png",
-            imageSrc2: "../../assets/img/icons/flags/DE.png",
-            imageSrc3: "../../assets/img/icons/flags/GB.png",
-            imageSrc4: "../../assets/img/icons/flags/BR.png",
-            imageAlt: "Country flag"
+            student_list: []
         };
+    },
+    beforeMount() {
+        this.getStudents();
+    },
+    methods: {
+        async getStudents() {
+            const students = (await axios.get(route('student.list'))).data
+            this.student_list = students;
+        },
+        async changeStatus(id) {
+            await axios.get(route('student.status', id))
+            this.getStudents();
+        },
+        async deleteStudent(id) {
+            await axios.delete(route('student.delete', id))
+            this.getStudents();
+        },
     }
 }
 </script>
@@ -148,7 +147,7 @@ export default {
     opacity: 0 !important
 }
 
-.table-content{
+.table-content {
     height: 60vh;
 }
 </style>

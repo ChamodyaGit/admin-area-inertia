@@ -18,90 +18,99 @@
                         <div class="col-lg-10">
                             <div class="card  mb-4">
                                 <div class="card-body p-3">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-12 col-lg-6">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Student Name</label>
+                                    <form @submit.prevent="studentStore">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-6">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Student Name</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control"
+                                                                v-model="student_form.name" placeholder="Type name..."
+                                                                required>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Type name..."
-                                                            required>
+                                                    <div class="col-12 col-lg-6">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Address</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control"
+                                                                v-model="student_form.address"
+                                                                placeholder="Type home address..." required>
+                                                        </div>
                                                     </div>
+                                                    <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Contact Number</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="number" class="form-control"
+                                                                v-model="student_form.contact"
+                                                                placeholder="Type mobile number..." required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Email</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control"
+                                                                v-model="student_form.email"
+                                                                placeholder="Type email address..." required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Gender</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select class="form-control" v-model="student_form.gender">
+                                                                <option value="1">Male</option>
+                                                                <option value="2">Female</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Date of Birth</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="date"
+                                                                v-model="student_form.date" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">NIC</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control"
+                                                                v-model="student_form.nic" placeholder="Type NIC number..."
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Profile Image</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input class="form-control dropify" type="file"
+                                                                @input="student_form.pimage = $event.target.files[0]"
+                                                                accept=" image/jpg, image/jpeg, image/png" required>
+                                                        </div>
+                                                    </div> -->
                                                 </div>
-                                                <div class="col-12 col-lg-6">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Address</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Type home address..." required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 mt-2">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Contact Number</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="number" class="form-control"
-                                                            placeholder="Type mobile number..." required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 mt-2">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Email</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="email" class="form-control"
-                                                            placeholder="Type email address..." required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 mt-2">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Gender</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <select class="form-control">
-                                                            <option value="1">Male</option>
-                                                            <option value="2">Female</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 mt-2">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Date of Birth</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="date" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 mt-2">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">NIC</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Type NIC number..." required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6 mt-2">
-                                                    <div class="col-12">
-                                                        <label class="form-control-label">Profile Image</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control dropify" type="file" name="images"
-                                                            accept=" image/jpg, image/jpeg, image/png" required>
-                                                    </div>
+                                            </div>
+                                            <div class="col-8 offset-2 col-lg-2 offset-lg-5 mt-4">
+                                                <div class="row">
+                                                    <button type="submit" class="btn bg-gradient-primary">Register</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-8 offset-2 col-lg-2 offset-lg-5 mt-4">
-                                            <div class="row">
-                                                <button type="button" class="btn bg-gradient-primary">Register</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -115,6 +124,7 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue'
+import axios from 'axios';
 
 export default {
     components: {
@@ -122,14 +132,31 @@ export default {
     },
     data() {
         return {
-            imageSrc1: "../../public/assets/img/icons/flags/US.png",
-            imageSrc2: "../../assets/img/icons/flags/DE.png",
-            imageSrc3: "../../assets/img/icons/flags/GB.png",
-            imageSrc4: "../../assets/img/icons/flags/BR.png",
-            imageSrcLogo: "../../assets/img/logo-ct-dark.png",
-            imageAlt: "Country flag",
-            imageAltLogo: "main_logo",
+            student_form: {
+                name: '',
+                address: '',
+                contact: '',
+                email: '',
+                gender: '',
+                date: '',
+                nic: '',
+                // pimage: null,
+            },
         };
+    },
+    methods: {
+        async studentStore() {
+            await axios.post(route('student.store'), this.student_form)
+
+            this.student_form.name = ''
+            this.student_form.address = ''
+            this.student_form.contact = ''
+            this.student_form.email = ''
+            this.student_form.gender = ''
+            this.student_form.date = ''
+            this.student_form.nic = ''
+            // this.student_form.pimage = ''
+        }
     }
 }
 </script>
