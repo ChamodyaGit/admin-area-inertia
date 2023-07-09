@@ -24,7 +24,10 @@ Route::prefix('/student')->group(function () {
     Route::get('/', [StudentController::class, "index"])->name('student');
     Route::get('/show', [StudentController::class, "show"])->name('student.show');
     Route::get('/list', [StudentController::class, 'list'])->name('student.list');
+    Route::get('/{student_id}/get', [StudentController::class, "get"])->name('student.get');
     Route::post('/store', [StudentController::class, "store"])->name('student.store');
+    Route::get('/edit', [StudentController::class, "edit"])->name('student.edit');
+    Route::post('/{student_id}/update', [StudentController::class, "update"])->name('student.update');
     Route::get('/{student_id}/status', [StudentController::class, "status"])->name('student.status');
     Route::delete('/{student_id}/delete', [StudentController::class, "delete"])->name('student.delete');
 });

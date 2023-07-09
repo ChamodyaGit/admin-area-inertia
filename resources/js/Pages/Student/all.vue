@@ -60,6 +60,8 @@
                                                                             <h6 class="mb-0 text-xs">{{ student.name }}</h6>
                                                                             <p class="text-xs text-secondary mb-0">
                                                                                 {{ student.email }}</p>
+                                                                                <p class="text-xs text-secondary mb-0">
+                                                                                {{ student.nic }}</p>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -83,6 +85,7 @@
                                                                         class="btn bg-gradient-warning ms-1"><i
                                                                             class="bi bi-slash-circle"></i></button>
                                                                     <button type="button"
+                                                                        @click.prevent="editStudent(student.id)"
                                                                         class="btn bg-gradient-info ms-1"><i
                                                                             class="bi bi-pencil-fill"></i></button>
                                                                     <button type="button"
@@ -104,8 +107,119 @@
                     </div>
                 </div>
             </div>
-
         </template>
+
+        <template #modals>
+            <div class="modal fade" id="studentEdit" tabindex="-1" role="dialog" aria-labelledby="studentEditLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="studentEditLabel">Update Student</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="studentUpdate">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">Student Name</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        v-model="student_update_form.name" placeholder="Type name..."
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">Address</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        v-model="student_update_form.address"
+                                                        placeholder="Type home address..." required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 mt-2">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">Contact Number</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control"
+                                                        v-model="student_update_form.contact"
+                                                        placeholder="Type mobile number..." required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 mt-2">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">Email</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control"
+                                                        v-model="student_update_form.email"
+                                                        placeholder="Type email address..." required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 mt-2">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">Gender</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select class="form-control" v-model="student_update_form.gender">
+                                                        <option value="1">Male</option>
+                                                        <option value="2">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 mt-2">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">Date of Birth</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="date"
+                                                        v-model="student_update_form.date" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 mt-2">
+                                                <div class="col-12">
+                                                    <label class="form-control-label">NIC</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        v-model="student_update_form.nic" placeholder="Type NIC number..."
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-12 col-lg-6 mt-2">
+                                                        <div class="col-12">
+                                                            <label class="form-control-label">Profile Image</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input class="form-control dropify" type="file"
+                                                                @input="student_update_form.pimage = $event.target.files[0]"
+                                                                accept=" image/jpg, image/jpeg, image/png" required>
+                                                        </div>
+                                                    </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-8 offset-2 col-lg-2 offset-lg-5 mt-4">
+                                        <div class="row">
+                                            <button type="submit" class="btn bg-gradient-primary">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
     </AppLayout>
 </template>
 
@@ -119,6 +233,16 @@ export default {
     },
     data() {
         return {
+            student_update_form: {
+                name: '',
+                address: '',
+                contact: '',
+                email: '',
+                gender: '',
+                date: '',
+                nic: '',
+                // pimage: null,
+            },
             student_list: []
         };
     },
@@ -138,6 +262,16 @@ export default {
             await axios.delete(route('student.delete', id))
             this.getStudents();
         },
+        async editStudent(id) {
+            const student = (await axios.get(route('student.get', id))).data
+            this.student_update_form = student
+            $('#studentEdit').modal('show')
+        },
+        async studentUpdate(){
+            await axios.post(route('student.update', this.student_update_form.id), this.student_update_form)
+            this.getStudents();
+            $('#studentEdit').modal('hide')
+        }
     }
 }
 </script>

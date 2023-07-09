@@ -30,9 +30,20 @@ class StudentController extends Controller
         return response()->json($students);
     }
 
+    public function get($student_id)
+    {
+        $student = StudentFacade::get($student_id);
+        return response()->json($student);
+    }
+
     public function status($student_id)
     {
         return StudentFacade::status($student_id);
+    }
+
+    public function update(Request $request, $student_id)
+    {
+        return StudentFacade::update($request->all(), $student_id);
     }
 
     public function delete($student_id)

@@ -20,6 +20,8 @@
 
                     <Footer />
 
+                    <slot name="modals"/>
+
                 </div>
             </main>
 

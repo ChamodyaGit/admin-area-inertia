@@ -14,6 +14,8 @@ import "../../public/assets/js/core/bootstrap.min.js";
 // import "../../public/assets/js/plugins/threejs.js";
 // import "../../public/assets/js/plugins/orbit-controls.js";
 import "../../public/assets/js/soft-ui-dashboard.min.js";
+import "https://code.jquery.com/jquery-3.6.0.min.js";
+import "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js";
 
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
