@@ -18,7 +18,7 @@
                         <div class="col-lg-10">
                             <div class="card  mb-4">
                                 <div class="card-body p-3">
-                                    <form @submit.prevent="studentStore">
+                                    <form @submit.prevent="studentStore" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="row">
@@ -92,16 +92,16 @@
                                                                 required>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col-12 col-lg-6 mt-2">
+                                                    <div class="col-12 col-lg-6 mt-2">
                                                         <div class="col-12">
                                                             <label class="form-control-label">Profile Image</label>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                             <input class="form-control dropify" type="file"
-                                                                @input="student_form.pimage = $event.target.files[0]"
+                                                                @input="student_form.images = $event.target.files[0]"
                                                                 accept=" image/jpg, image/jpeg, image/png" required>
-                                                        </div>
-                                                    </div> -->
+                                                        </div> -->
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-8 offset-2 col-lg-2 offset-lg-5 mt-4">
@@ -140,7 +140,7 @@ export default {
                 gender: '',
                 date: '',
                 nic: '',
-                // pimage: null,
+                // images: null,
             },
         };
     },
@@ -155,7 +155,7 @@ export default {
             this.student_form.gender = ''
             this.student_form.date = ''
             this.student_form.nic = ''
-            // this.student_form.pimage = ''
+            // this.student_form.images = ''
         }
     }
 }

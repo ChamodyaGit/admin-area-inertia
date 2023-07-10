@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('gender')->nullable();
             $table->date('date')->nullable();
             $table->string('nic')->nullable();
-            $table->string('pimage')->nullable();
+            $table->bigInteger('image_id')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

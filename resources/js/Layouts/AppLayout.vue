@@ -37,6 +37,7 @@ import Footer from '@/Components/Main/Footer.vue'
 
 export default {
     components: {
+        Head,
         NavBar,
         SideBar,
         Footer,
